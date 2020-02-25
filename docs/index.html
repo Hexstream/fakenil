@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+
+<html>
+
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="canonical" href="https://www.hexstreamsoft.com/libraries/fakenil/" />
+    <meta name="author" content="Jean-Philippe Paradis" />
+    <link rel="author" href="https://abc.hexstream.xyz/" />
+    <link rel="license" href="https://www.hexstreamsoft.com/UNLICENSE" />
+    <meta name="description" content="Provides a canonical stand-in for NIL for contexts where NIL means &quot;no value&quot;." />
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>fakenil | Libraries | HexstreamSoft</title>
+    <link href="https://www.hexstreamsoft.com/css/global.css" rel="stylesheet" type="text/css" />
+    <link href="https://www.hexstreamsoft.com/libraries/libraries.css" rel="stylesheet" type="text/css" />
+    <link href="https://global.hexstreamsoft.com/css/cl-definitions.css" rel="stylesheet" type="text/css" />
+    <script src="https://global.hexstreamsoft.com/scripts/global.js"></script>
+    <script src="https://www.hexstreamsoft.com/scripts/global.js"></script>
+    <script src="https://www.hexstreamsoft.com/libraries/libraries.js" defer></script>
+  </head>
+
+  <body>
+
+    <nav id="top-nav">
+
+      <div class="main">
+
+        <div class="breadcrumbs">
+          <a href="https://www.hexstreamsoft.com/">HexstreamSoft</a>
+          <span class="crumb"><span class="s"> » </span><a href="https://www.hexstreamsoft.com/libraries/">Libraries</a></span>
+          <span class="crumb"><span class="s"> » </span><a class="here">fakenil</a></span>
+        </div>
+
+        <nav class="tabs" id="meta-nav">
+          <ul>
+            <li><a class="github" href="https://github.com/Hexstream/fakenil"><span>See on GitHub</span></a></li>
+          </ul>
+        </nav>
+
+      </div>
+
+      <p id="last-updated"><span>This page was last updated on </span><time datetime="2020-02-24">24 february 2020</time><span>.</span></p>
+
+    </nav>
+
+    <main>
+
+      <header id="page-header">
+        <h1>fakenil</h1>
+      </header>
+
+      <div class="tags contains-groups">
+        <div class="group prominent">
+          <span class="tag hv license">
+            <span class="h">License<span>:</span></span>
+            <span class="v">Public Domain</span>
+          </span>
+          <span class="s">, </span>
+          <span class="tag hv quicklisp">
+            <span class="h">Load it with Quicklisp<span>:</span></span>
+            <code class="v">(ql:quickload "fakenil")</code>
+          </span>
+        </div>
+        <div class="group">
+          <span class="tag hv">
+            <span class="h">Library type<span>:</span></span>
+            <span class="v">Convenience feature</span>
+          </span>
+          <span class="s">, </span>
+          <span class="tag hv">
+            <span class="h">Project complexity<span>:</span></span>
+            <span class="v">Embarrassingly trivial</span>
+          </span>
+        </div>
+      </div>
+
+      <nav class="tabs" id="further-info">
+        <ul>
+          <li><a href="https://www.hexstreamsoft.com/libraries/releases/latest-versions/#fakenil">Latest release</a></li>
+          <li><a href="https://www.hexstreamsoft.com/libraries/dependencies/#fakenil">Dependencies</a></li>
+        </ul>
+        <ul>
+          <li><a href="https://www.hexstreamsoft.com/libraries/external-pages-xref/#fakenil">External library pages</a></li>
+        </ul>
+      </nav>
+
+      <section id="introduction">
+
+        <p><dfn><code class="relevant">fakenil</code></dfn> provides a canonical stand-in for <code><a href="http://www.lispworks.com/documentation/HyperSpec/Body/v_nil.htm" target="_blank">nil</a></code> for contexts where <code><a href="http://www.lispworks.com/documentation/HyperSpec/Body/v_nil.htm" target="_blank">nil</a></code> means "no value".</p>
+
+      </section>
+
+      <nav class="tabs">
+        <ul>
+          <li><a href="#overview">Overview</a></li>
+          <li><a href="#dictionary">Dictionary</a></li>
+        </ul>
+      </nav>
+
+      <section id="overview">
+
+        <h1 class="breadcrumbs-bar">
+          <span class="section-relative-nav">
+            <a href="#overview" class="anchor">⚓</a>
+          </span>
+          <span class="breadcrumbs">
+            <a class="here">Overview</a>
+          </span>
+        </h1>
+
+        <p>In many contexts, <code>nil</code> is a <dfn>special value</dfn> meaning "no value" or similar. In many of those contexts, <code>nil</code> would not be a meaningful <dfn>normal value</dfn> anyway (or both meanings coincide), so there are no difficulties.</p>
+
+        <p>The question arises of how best to represent a normal value of <code>nil</code> in those contexts where <code>nil</code> is already a special value, since we then need to distinguish between these two incompatible meanings of <code>nil</code>.</p>
+
+        <p>There is of course the traditional strategy of using a second value indicating whether the first value is meaningful, as <a href="http://www.lispworks.com/documentation/HyperSpec/Body/f_gethas.htm" target="_blank">gethash</a> does, but this is almost always overkill. Reserving <code>nil</code> as the special value is the right call in most contexts, even when <code>nil</code> might theoretically or occasionally make sense as a normal value.</p>
+
+        <p>Yet it might still happen that someone needs to represent a normal value of <code>nil</code> in such contexts. Traditionally, users would choose an arbitrary stand-in value on an ad-hoc basis, and this might need to be documented, or might be left undocumented, leaving other users to choose their own arbitrary stand-in values anew. fakenil provides <code>nil*</code>, a canonical value to use in such scenarios. Besides slight increases in code quality, convenience and ergonomics, using this specific stand-in value instead of arbitrary other stand-in values helps tracking the usage of this idiom, and other libraries can reference fakenil (which is fully and solely dedicated to this concept) instead of inventing and documenting their own similar concept or leaving the issue open.</p>
+
+      </section>
+
+      <section id="dictionary">
+
+        <h1 class="breadcrumbs-bar">
+          <span class="section-relative-nav">
+            <a href="#dictionary" class="anchor">⚓</a>
+          </span>
+          <span class="breadcrumbs">
+            <a class="here">Dictionary</a>
+          </span>
+        </h1>
+
+        <nav class="tabs">
+          <ul>
+            <li><a href="#dictionary_nil*"><span>Package</span> <code>nil*</code></a></li>
+            <li><a href="#dictionary_nil*"><span>Constant</span> <code>nil*</code></a></li>
+          </ul>
+        </nav>
+
+        <section id="dictionary_nil*">
+
+          <h1 class="breadcrumbs-bar">
+            <span class="section-relative-nav">
+              <a href="#dictionary_fakenil" class="anchor">⚓</a>
+            </span>
+            <span class="breadcrumbs">
+              <a href="#dictionary">Dictionary</a>
+              <span class="crumb"><span class="s"> » </span><a class="here">nil*</a></span>
+            </span>
+          </h1>
+
+          <article class="package definition">
+
+            <h1><span class="type">Package</span> <span class="name self">nil*</span></h1>
+
+            <section class="description">
+              <h1>Description</h1>
+              <p>This package is also nicknamed <code class="relevant">fakenil</code>. <small>(The shorter name is used as the package name to make output more pleasant. Moreover, the primary reason the project is called "fakenil" rather than "nil*" is because "*" in a project name is judged likely to cause interoperability problems.)</small></p>
+              <p>This package exports a single symbol, <code class="relevant"><a href="#dictionary_nil*">nil*</a></code>. Either <code>(:import-from #:nil* #:nil*)</code> from your <a href="http://www.lispworks.com/documentation/HyperSpec/Body/m_defpkg.htm" target="_blank">defpackage</a> or explicitly refer to it as <code class="relevant"><a href="#dictionary_nil*">nil*:nil*</a></code>, both approaches are valid. Don't <code>(:use)</code>!</p>
+              <p>Note that while this symbol is not often used in source code, therefore making explicit package-qualification viable, importing it can help make for a cleaner debugging experience (if you'd rather not see <code>nil*:nil*</code> being passed around).</p>
+            </section>
+
+          </article>
+
+          <article class="variable definition">
+
+            <h1><span class="type">Constant</span> <span class="name self">nil*</span></h1>
+
+            <section class="description">
+              <h1>Description</h1>
+              <p>The value of this constant is its name, the symbol <code class="relevant"><a href="#dictionary_nil*">nil*</a></code>.</p>
+            </section>
+
+          </article>
+
+        </section>
+
+      </section>
+
+    </main>
+
+    <footer id="footer">
+      <div class="back-to-top left">
+        <a href="#">⬆</a>
+      </div>
+      <div class="main">
+        <a href="https://validator.w3.org/check?uri=http%3A%2F%2Fwww.hexstreamsoft.com%2Flibraries%2Ffakenil%2F">✔ HTML5</a>
+        <a href="https://www.hexstreamsoft.com/README">✔ Public Domain</a>
+        <a href="https://jigsaw.w3.org/css-validator/validator?uri=http%3A%2F%2Fwww.hexstreamsoft.com%2Flibraries%2Ffakenil%2F">✔ CSS3</a>
+        <a>✔ Mobile-friendly</a>
+      </div>
+      <div class="back-to-top right">
+        <a href="#">⬆</a>
+      </div>
+    </footer>
+
+  </body>
+</html>

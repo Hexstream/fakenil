@@ -1,0 +1,8 @@
+Project's home: https://www.hexstreamsoft.com/libraries/fakenil/
+
+
+fakenil provides a canonical stand-in for NIL for contexts where NIL means \"no value\".
+
+
+This library is in the Public Domain.
+See the UNLICENSE file for details.
